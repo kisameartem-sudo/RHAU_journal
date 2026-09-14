@@ -3,28 +3,25 @@ from dataclasses import dataclass
 
 @dataclass
 class Group:
-    id: int
     name: str
 
 
 @dataclass
 class Discipline:
-    id: int
     name: str
 
 
 @dataclass
 class Student:
-    id: int
     full_name: str
     group_id: int
 
 
 class Manager:
     def __init__(self):
-        self.disciplines_dct = {}
-        self.groups_dct = {}
-        self.students_lst = {}
+        self.disciplines = {}
+        self.groups = {}
+        self.students = {}
 
     def get_num_disc(self):
         return len(self.disciplines_dct)
