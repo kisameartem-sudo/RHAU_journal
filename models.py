@@ -3,11 +3,13 @@ from dataclasses import dataclass
 
 @dataclass
 class Group:
+    id: int
     name: str
 
 
 @dataclass
 class Discipline:
+    id: int
     name: str
 
 
@@ -23,39 +25,22 @@ class Manager:
         self.groups = {}
         self.students = {}
 
-    def get_num_disc(self):
-        return len(self.disciplines_dct)
-
-    def check_unique_disc(self):
-        return self.disciplines_dct.keys()
+    def _add_named_item(self, name, storage, model):
+        pass
 
     def new_discipline(self, name):
-        num_disc = self.get_num_disc()
-        if not num_disc:
-            self.disciplines_dct[name] = Discipline(1, name)
+        if name in self.disciplines:
+            return f'[ERROR] Дисциплина "{name}" уже существует'
         else:
-            if name in self.check_unique_disc():
-                return f'[ERROR] Дисциплина "{name}" уже существует'
-            else:
-                self.disciplines_dct[name] = Discipline(num_disc+1, name)
-                return f'[V] Дисциплина "{name}" добавлена'
-
-    def get_num_group(self):
-        return len(self.groups_dct)
-
-    def check_unique_group(self):
-        return self.groups_dct.keys()
+            self.disciplines[name] = Discipline(len(self.disciplines)+1, name)
+            return f'[V] Дисциплина "{name}" добавлена'
 
     def new_group(self, name):
-        num_gr = self.get_num_group()
-        if not num_gr:
-            self.groups_dct[name] = Group(1, name)
+        if name in self.groups:
+            return f'[ERROR] Группа "{name}" уже существует'
         else:
-            if name in self.check_unique_group():
-                return f'[ERROR] Группа "{name}" уже существует'
-            else:
-                self.groups_dct[name] = Group(num_gr+1, name)
-                return f'[V] Группа "{name}" добавлена'
+            self.groups[name] = Group(len(self.groups)+1, name)
+            return f'[V] Группа "{name}" добавлена'
 
 
 
