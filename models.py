@@ -43,13 +43,15 @@ class Manager:
     def add_student(self, full_name, gr_name):
         if gr_name not in self.groups:
             return f'[ERROR] "{gr_name}" не существует'
-        else:
-            gr_id = list(self.groups.keys()).index(gr_name)
-        if full_name in self.students:
+
+        if full_name in [stud.full_name for stud in self.students.values()]:
             return f'[ERROR] "{full_name}" уже существует'
 
+        gr_id = self.groups[gr_name].id
         new_id = len(self.students) + 1
         self.students[new_id] = Student(full_name, gr_id)
+
+        return f'[V] Студент(ка) {full_name} добавлен(а)'
 
 def main():
     pass
