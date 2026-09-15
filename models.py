@@ -25,22 +25,30 @@ class Manager:
         self.groups = {}
         self.students = {}
 
-    def _add_named_item(self, name, storage, model):
-        pass
-
-    def new_discipline(self, name):
-        if name in self.disciplines:
-            return f'[ERROR] Дисциплина "{name}" уже существует'
+    def _add_named_item(self, name: str, storage: dict, model: object):
+        if name in storage:
+            return f'[ERROR] "{name}" уже существует'
         else:
-            self.disciplines[name] = Discipline(len(self.disciplines)+1, name)
-            return f'[V] Дисциплина "{name}" добавлена'
+            new_id = len(storage)+1
+            storage[name] = model(new_id, name)
+            return f'[V] "{name}" добавлена'
 
-    def new_group(self, name):
-        if name in self.groups:
-            return f'[ERROR] Группа "{name}" уже существует'
-        else:
-            self.groups[name] = Group(len(self.groups)+1, name)
-            return f'[V] Группа "{name}" добавлена'
+
+
+
+    def add_discipline(self, name):
+        self._add_named_item(
+            name,
+            self.disciplines,
+            Discipline
+        )
+
+    def add_group(self, name):
+        self._add_named_item(
+            name,
+            self.groups,
+            Group
+        )
 
 
 
